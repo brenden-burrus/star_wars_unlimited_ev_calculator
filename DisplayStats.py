@@ -1,5 +1,7 @@
 import pandas as pd
 
+from Definitions.defineStats import average_value
+
 # List of Showcases
 showcases = [
     "Gar Saxon - Viceroy of Mandalore", 
@@ -20,15 +22,26 @@ showcases = [
     "Lando Calrissian - With Impeccable Taste"
 ]
 
-# Read Market Data CSV
-market_value_df = pd.read_csv('market_values.csv')
-print(market_value_df.count)
+def cleanse_market_value_csv(csv_name, showcase_list):
 
-#Cleaning up Market data to remove bases and add the showcase printing option
-showcase_filter = market_value_df['Product Name'].isin(showcases)
-base_filter = market_value_df['Product Name'].str.contains("//")
-market_value_df = market_value_df[~showcase_filter]
-market_value_df = market_value_df[~base_filter]
+    # Read Market Data CSV
+    df = pd.read_csv(csv_name)
+
+    #Cleaning up Market data to remove bases and add the showcase printing option
+    showcase_filter = df['Product Name'].isin(showcase_list)
+    base_filter = df['Product Name'].str.contains("//")
+
+    df = df[~showcase_filter]
+    df = df[~base_filter]
+
+    df['Market Price'] = df['Market Price'].map(lambda x: x.replace('$',''))
+
+    df["Rarity"] = df["Rarity"].mask(df['Product Name'].str.contains("(Showcase)"), "Showcase")
+
+    return df
 
 
-print(market_value_df.count)
+if __name__ == "__main__":
+
+    mv_df = cleanse_market_value_csv('market_values.csv', showcases)
+    print(average_value("Legendary", "Normal",True, False, mv_df))
