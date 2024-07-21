@@ -1,6 +1,6 @@
 def average_value(rarity: list, printing: str, exclude_hyperspace: bool, exclude_regular: bool, market_value_df) -> float:
     filtered_df = market_value_df[market_value_df['Rarity'].isin(rarity)]
-    print(filtered_df.to_string())
+
     if exclude_hyperspace:
         filtered_df = filtered_df[~filtered_df['Product Name'].str.contains("(Hyperspace)")]
     elif exclude_regular:
@@ -108,9 +108,9 @@ def get_diff_between_rarities(rarity: str, market_values):
 
     pct_avgs = [val/len(card_names) for val in pct_avgs]
 
-    print(f"Average % Difference in Market Value between Base Rarity and Foil Rarity is {pct_avgs[0]}%")
-    print(f"Average % Difference in Market Value between Base Rarity and Hyperspace Rarity is {pct_avgs[1]}%")
-    print(f"Average % Difference in Market Value between Base Rarity and Hyperfoil Rarity is {pct_avgs[2]}%")
+    print(f"Average % Difference in Market Value between Base Rarity and Foil Rarity {rarity} cards is {pct_avgs[0]}%")
+    print(f"Average % Difference in Market Value between Base Rarity and Hyperspace Rarity {rarity} cards is {pct_avgs[1]}%")
+    print(f"Average % Difference in Market Value between Base Rarity and Hyperfoil Rarity {rarity} cards is {pct_avgs[2]}%")
 
     for key, value in values_dict.items():
         if value[2] > pct_avgs[2]:
