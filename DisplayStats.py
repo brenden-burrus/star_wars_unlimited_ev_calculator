@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Definitions.defineStats import average_value, get_expected_value
+from Definitions.defineStats import average_value, get_expected_value, get_diff_between_rarities
 from Definitions.definePullRates import get_pull_rates
 
 # List of Showcases
@@ -50,6 +50,7 @@ def cleanse_market_value_csv(csv_name, leaders):
 
 if __name__ == "__main__":
 
-    mv_df = cleanse_market_value_csv('market_values.csv', leaders)
-    pull_rates = get_pull_rates()
-    get_expected_value(24, pull_rates, mv_df)
+    mv_df = cleanse_market_value_csv('market_values_7_20_24.csv', leaders)
+    # pull_rates = get_pull_rates()
+    # get_expected_value(24, pull_rates, mv_df)
+    get_diff_between_rarities("Legendary", mv_df)
