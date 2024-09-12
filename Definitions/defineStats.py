@@ -6,6 +6,7 @@ def average_value(rarity: list, printing: str, exclude_hyperspace: bool, exclude
     elif exclude_regular:
         filtered_df = filtered_df[filtered_df['Product Name'].str.contains("(Hyperspace)")]
     filtered_df = filtered_df[filtered_df['Printing'] == printing]
+    print(filtered_df.to_string())
 
     average_price = filtered_df["Market Price"].astype(float).sum() / len(filtered_df.index)
 

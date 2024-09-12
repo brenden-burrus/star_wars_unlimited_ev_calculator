@@ -50,8 +50,11 @@ def cleanse_market_value_csv(csv_name, leaders):
 
 if __name__ == "__main__":
 
-    mv_df = cleanse_market_value_csv('market_values_7_20_24.csv', leaders)
+    mv_df = cleanse_market_value_csv('market_values_8_7_24.csv', leaders)
+    # Dedupe Dataframe
+    mv_df = mv_df.drop_duplicates(subset=['Product Name', 'Printing'])
+    # print(mv_df.to_string())
     pull_rates = get_pull_rates()
     get_expected_value(24, pull_rates, mv_df)
-    get_diff_between_rarities("Legendary", mv_df)
-    get_diff_between_rarities("Rare", mv_df)
+    # get_diff_between_rarities("Legendary", mv_df)
+    # get_diff_between_rarities("Rare", mv_df)
